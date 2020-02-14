@@ -15,7 +15,14 @@ export class CommentComponent implements OnInit {
   @Output() remove = new EventEmitter();
   @Output() update = new EventEmitter();
   @Output() create = new EventEmitter();
+
+  model = new CommentItem(0, "Comment Title", "Set a description", []);
+  tagModel: any;
+  editMode: Boolean = false;
+  textWithMath: string;
+
   constructor() {}
+
   edit(): void {
     this.editMode = true;
     this.model.id = this.comment.id;
@@ -23,20 +30,19 @@ export class CommentComponent implements OnInit {
     this.model.text = this.comment.text;
     this.model.tags = this.comment.tags;
   }
+
   cancel(): void {
     this.editMode = false;
   }
+
   save(): void {
     if (this.comment === "new") {
       this.create.emit(this.model);
     } else {
       this.update.emit({ old: this.comment, new: this.model });
+      this.detectMath();
     }
   }
-
-  model = new CommentItem(0, "Comment Title", "Set a description", []);
-  tagModel: any;
-  editMode: Boolean = false;
 
   onTagKey($event) {
     if ($event.target.value.trim().length > 0) {
@@ -70,5 +76,34 @@ export class CommentComponent implements OnInit {
     if (this.comment === "new") {
       this.editMode = true;
     }
+    this.detectMath();
+  }
+
+  detectMath(): void {
+    let regex = /\d[\+||\-]\d/;
+    if (regex.test(this.comment.text)) {
+      let textArr = this.comment.text.split(" ");
+      for (let i = 0; i < textArr.length; i++) {
+        if (regex.test(textArr[i])) {
+          let result = this.calculate(textArr[i]);
+          textArr[i] = `<em><strong>${result}</strong></em>`;
+        }
+      }
+      this.textWithMath = textArr.join(" ");
+    }
+  }
+
+  calculate(str: string): number {
+    let components = str.split("");
+    let results = Number(components[0]);
+    for (let i = 1; i < components.length; i++) {
+      if (components[i] === "+") {
+        results += Number(components[i + 1]);
+      }
+      if (components[i] === "-") {
+        results -= Number(components[i + 1]);
+      }
+    }
+    return results;
   }
 }

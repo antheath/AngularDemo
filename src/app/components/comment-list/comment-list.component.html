@@ -31,5 +31,9 @@
     [tags]="tags"
   ></app-comment>
 </div>
-<app-comment (create)="onCreate($event)" comment="new"></app-comment>
+<app-comment
+  (create)="onCreate($event)"
+  comment="new"
+  [tags]="tags"
+></app-comment>
 <!-- <app-comment-form></app-comment-form> -->
