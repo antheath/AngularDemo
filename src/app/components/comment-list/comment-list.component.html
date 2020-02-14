@@ -1,0 +1,35 @@
+<header class="container-fluid">
+  <div class="row">
+    <div class="col-8">
+      <h4>Anthony's Commenting System</h4>
+    </div>
+    <div class="col-4">
+      <select (change)="onFilterChange($event)" class="form-control">
+        <option value="">Show All</option>
+        <option *ngFor="let tag of tags" [value]="tag">{{ tag }}</option>
+      </select>
+    </div>
+  </div>
+</header>
+<div *ngIf="!filteredComments.length">
+  <app-comment
+    *ngFor="let comment of comments"
+    (remove)="onRemove($event)"
+    (update)="onUpdate($event)"
+    (create)="onCreate($event)"
+    [comment]="comment"
+    [tags]="tags"
+  ></app-comment>
+</div>
+<div *ngIf="filteredComments.length">
+  <app-comment
+    *ngFor="let comment of filteredComments"
+    (remove)="onRemove($event)"
+    (update)="onUpdate($event)"
+    (create)="onCreate($event)"
+    [comment]="comment"
+    [tags]="tags"
+  ></app-comment>
+</div>
+<app-comment (create)="onCreate($event)" comment="new"></app-comment>
+<!-- <app-comment-form></app-comment-form> -->

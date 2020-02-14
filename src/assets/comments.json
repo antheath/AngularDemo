@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Great code Anthony!",
+    "text": "You did a <strong>great</strong> job! This looks <em>amazing!</em> - Simon",
+    "tags": ["issue", "task"]
+  },
+  {
+    "id": 2,
+    "title": "Bugs? What bugs?",
+    "text": "Those aren't bugs. They're <a href='#'><strong>features</strong></a>",
+    "tags": ["bug"]
+  },
+  {
+    "id": 3,
+    "title": "What's up with the style?",
+    "text": "I really wanted to add more <em><strong>style</strong></em> but there just wasn't enough time.",
+    "tags": ["issue"]
+  },
+  {
+    "id": 4,
+    "title": "Angular is pretty cool",
+    "text": "Test out the app and let me know what you think",
+    "tags": ["task"]
+  },
+  {
+    "id": 5,
+    "title": "Add your own comments",
+    "text": "Try adding your own comment below",
+    "tags": ["comment"]
+  }
+]

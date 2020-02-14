@@ -1,0 +1,79 @@
+<div *ngIf="!editMode">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <h4>{{ comment.title }}</h4>
+        </div>
+        <div class="col text-right">#{{ comment.id }}</div>
+      </div>
+      <p class="card-text" [innerHTML]="comment.text"></p>
+    </div>
+    <div class="card-footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <a *ngFor="let tag of comment.tags" class="badge badge-primary">{{
+              tag
+            }}</a>
+          </div>
+          <div class="col text-right">
+            <button (click)="edit()" class="btn btn-primary">Edit</button>
+            <button (click)="remove.emit(comment)" class="btn btn-danger">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="editMode">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <h4>
+            <input type="text" class="form-control" [(ngModel)]="model.title" />
+          </h4>
+        </div>
+        <div class="col text-right">
+          <input type="text" class="form-control" [(ngModel)]="model.id" />
+        </div>
+      </div>
+      <input type="text" class="form-control" [(ngModel)]="model.text" />
+    </div>
+    <div class="card-footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <span
+              *ngFor="let tag of this.model.tags"
+              class="badge badge-primary"
+              (click)="onTagClick(tag)"
+              >{{ tag }}</span
+            >
+          </div>
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Add New Tag"
+              (keyup)="onTagKey($event)"
+            />
+          </div>
+          <div class="col">
+            <select (change)="onTagChange($event)" class="form-control">
+              <option value="">Add Existing Tag</option>
+              <option *ngFor="let tag of tags" [value]="tag">{{ tag }}</option>
+            </select>
+          </div>
+          <div class="col text-right">
+            <button (click)="save()" class="btn btn-primary">Save</button>
+            <button (click)="cancel()" class="btn btn-danger">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
